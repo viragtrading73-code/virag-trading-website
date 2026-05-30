@@ -1,0 +1,61 @@
+---
+import company from '../data/company.json';
+
+interface Props {
+  product?: any;
+}
+
+const { product } = Astro.props;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": company.name,
+  "url": company.site.url,
+  "logo": new URL(company.site.logo, Astro.site).toString(),
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": company.contact.primaryPhone,
+    "contactType": "customer service"
+  }
+};
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": company.name,
+  "image": new URL(company.site.logo, Astro.site).toString(),
+  "@id": company.site.url,
+  "url": company.site.url,
+  "telephone": company.contact.primaryPhone,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": company.address.streetAddress,
+    "addressLocality": company.address.addressLocality,
+    "postalCode": company.address.postalCode,
+    "addressCountry": company.address.addressCountry
+  },
+  "openingHoursSpecification": company.hours.openingHoursSpecification
+};
+
+let productSchema = null;
+if (product) {
+  productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.data.title,
+    "image": product.data.images.map((img: string) => new URL(img, Astro.site).toString()),
+    "description": product.data.description,
+    "sku": product.id,
+    "brand": {
+      "@type": "Brand",
+      "name": company.name
+    }
+  };
+}
+
+const schemas = [organizationSchema, localBusinessSchema];
+if (productSchema) schemas.push(productSchema);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schemas)} />

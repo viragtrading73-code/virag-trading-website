@@ -1,0 +1,48 @@
+{
+  "name": "Virag Trading Co.",
+  "legalName": "Virag Trading Co.",
+  "established": "2016",
+  "businessType": "Industrial Packaging Material Supplier, Trader & Distributor",
+  "contact": {
+    "primaryPhone": "+91 7874947917",
+    "primaryPhoneDisplay": "+91 78749 47917",
+    "secondaryPhone": "+91 9825468307",
+    "secondaryPhoneDisplay": "+91 98254 68307",
+    "whatsapp": "+917874947917",
+    "whatsappLink": "https://wa.me/917874947917",
+    "email": "Viragtrading73@gmail.com"
+  },
+  "address": {
+    "streetAddress": "74 New APMC Sardar Textile Market, Parvat Patiya Road",
+    "addressLocality": "Surat",
+    "addressRegion": "Gujarat",
+    "postalCode": "395010",
+    "addressCountry": "IN",
+    "fullAddress": "74 New APMC Sardar Textile Market, Parvat Patiya Road, Surat, Gujarat - 395010",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.9785713141378!2d72.8524614!3d21.1930102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04fd764878f17%3A0xd5627350a86cec3f!2sVirag%20Trading%20Co.!5e0!3m2!1sen!2sin!4v1780164524194!5m2!1sen!2sin"
+  },
+  "serviceArea": "Surat, Gujarat, India",
+  "hours": {
+    "days": "Monday to Saturday",
+    "time": "9:00 AM to 6:00 PM",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ]
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "linkedin": ""
+  },
+  "site": {
+    "url": "https://viragtrading.co.in",
+    "defaultTitle": "Industrial Packaging Material Supplier in Surat | Virag Trading Co.",
+    "defaultDescription": "Virag Trading Co. is a trusted supplier of industrial packaging materials, jute products, strapping rolls, protective packaging and packaging solutions in Surat, Gujarat.",
+    "logo": "/images/logo/logo.jpeg"
+  }
+}

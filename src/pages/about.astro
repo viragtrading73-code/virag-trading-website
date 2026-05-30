@@ -1,0 +1,64 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import company from '../data/company.json';
+
+const title = `About Us | ${company.name}`;
+const description = `Learn about ${company.name}, a trusted supplier of industrial packaging materials since ${company.established}. We focus on quality, reliability, and long-term relationships.`;
+---
+
+<MainLayout title={title} description={description}>
+  <!-- Page Header -->
+  <section class="bg-primary py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold font-montserrat text-white mb-4">About Us</h1>
+      <div class="w-16 h-1 bg-accent mx-auto"></div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold font-montserrat text-primary mb-8 text-center">Who We Are</h2>
+        <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+          <p class="mb-6">
+            <strong>{company.name}</strong> has been supplying premium industrial packaging materials, protective packaging products, and comprehensive packaging solutions since <strong>{company.established}</strong>. Based in {company.address.addressLocality}, {company.address.addressRegion}, we have grown to become a trusted name in the industry.
+          </p>
+          <p class="mb-6">
+            We understand that packaging is a critical component of your supply chain and product safety. That's why we are dedicated to sourcing and providing only the highest quality materials that meet stringent industrial standards.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50 border-t border-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold font-montserrat text-primary mb-12 text-center">Our Core Values</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-primary mb-3">Quality First</h3>
+            <p class="text-gray-600">We never compromise on the quality of our products, ensuring that your goods are always secure and protected.</p>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-primary mb-3">Reliability</h3>
+            <p class="text-gray-600">Consistent and timely supply is the backbone of our service. We strive to be a partner you can depend on, day in and day out.</p>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-primary mb-3">Customer Support</h3>
+            <p class="text-gray-600">Our dedicated team is always ready to assist you with fast responses, technical expertise, and tailored solutions.</p>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-primary mb-3">Long-Term Relationships</h3>
+            <p class="text-gray-600">We believe in building lasting partnerships with our clients through transparency, trust, and mutual growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</MainLayout>
