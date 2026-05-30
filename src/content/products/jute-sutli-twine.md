@@ -2,11 +2,12 @@
 title: "Jute Sutli (Twine)"
 description: "Premium quality 3 Ply Jute Sutli made from 100% natural jute fibres. Strong, eco-friendly and biodegradable. Ideal for packaging, gift wrapping, bouquet arrangements, arts & crafts, gardening and bundling."
 keywords: ["Jute Sutli", "Jute Twine", "Packaging Twine", "Eco-friendly Twine", "Biodegradable Twine", "Gardening Twine"]
+category: "Jute Products"
 images: 
-  - "/images/products/brown-jute-twine-roll.jpeg"
-  - "/images/products/jute-sutli-packaging-twine.jpeg"
-  - "/images/products/jute-sutli-twine-roll.jpeg"
-  - "/images/products/natural-jute-sutli-closeup.jpeg"
+  - "../../assets/images/products/brown-jute-twine-roll.jpeg"
+  - "../../assets/images/products/jute-sutli-packaging-twine.jpeg"
+  - "../../assets/images/products/jute-sutli-twine-roll.jpeg"
+  - "../../assets/images/products/natural-jute-sutli-closeup.jpeg"
 features:
   - "100% Natural Jute Fibre"
   - "3 Ply Construction"

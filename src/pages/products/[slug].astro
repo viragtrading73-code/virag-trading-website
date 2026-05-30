@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import MainLayout from '../../layouts/MainLayout.astro';
 import company from '../../data/company.json';
 
@@ -13,7 +14,19 @@ export async function getStaticPaths() {
 
 const { product } = Astro.props;
 const { title, description, keywords, images, features, specifications, applications, faq } = product.data;
-const mainImage = images[0] || '/images/products/placeholder.webp';
+
+// Resolve images via import.meta.glob to handle string paths correctly with astro:assets
+const glob = import.meta.glob<{ default: any }>('/src/assets/images/products/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+const resolvedImages = images ? images.map((img: any) => {
+  if (typeof img === 'string') {
+    const filename = img.split('/').pop();
+    const path = `/src/assets/images/products/${filename}`;
+    return glob[path] ? glob[path].default : img;
+  }
+  return img;
+}) : [];
+
+const mainImage = resolvedImages.length > 0 ? resolvedImages[0] : null;
 
 const whatsappMessage = encodeURIComponent(`Hello Virag Trading Co,\n\nI am interested in ${title}.\n\nPlease share details and quotation.\n\nThank you.`);
 const whatsappLink = `https://wa.me/${company.contact.whatsapp.replace('+', '')}?text=${whatsappMessage}`;
@@ -39,13 +52,17 @@ const whatsappLink = `https://wa.me/${company.contact.whatsapp.replace('+', '')}
         <!-- Product Images -->
         <div class="w-full lg:w-1/2">
           <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-4 sticky top-24">
-            <img src={mainImage} alt={title} class="w-full h-auto object-cover rounded-lg shadow-sm" id="main-product-image" />
+            {mainImage ? (
+              <Image src={mainImage} alt={title} title={title} width={mainImage.width} height={mainImage.height} class="w-full h-auto object-cover rounded-lg shadow-sm" id="main-product-image" loading="eager" />
+            ) : (
+              <img src="/images/products/placeholder.webp" alt={title} title={title} class="w-full h-auto object-cover rounded-lg shadow-sm" id="main-product-image" />
+            )}
             
-            {images.length > 1 && (
+            {resolvedImages && resolvedImages.length > 1 && (
               <div class="grid grid-cols-4 gap-4 mt-4">
-                {images.map((img: string) => (
+                {resolvedImages.map((img: any) => (
                   <button class="border-2 border-transparent hover:border-secondary rounded-lg overflow-hidden transition-colors focus:outline-none focus:border-secondary product-thumbnail">
-                    <img src={img} alt={title} class="w-full h-24 object-cover" />
+                    <Image src={img} alt={title} title={title} width={img.width} height={img.height} class="w-full h-24 object-cover" />
                   </button>
                 ))}
               </div>

@@ -10,15 +10,17 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
-  image?: string;
+  image?: string | any;
   type?: string;
+  product?: any;
 }
 
 const { 
   title = company.site.defaultTitle, 
   description = company.site.defaultDescription,
   image = company.site.logo,
-  type = 'website'
+  type = 'website',
+  product
 } = Astro.props;
 ---
 
@@ -33,7 +35,7 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
     <SEO title={title} description={description} image={image} type={type} />
-    <SchemaMarkup />
+    <SchemaMarkup product={product} />
   </head>
   <body class="font-inter bg-[#F8F9FA] text-[#1F2937] antialiased flex flex-col min-h-screen">
     <Header />
