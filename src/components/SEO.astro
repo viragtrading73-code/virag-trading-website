@@ -18,14 +18,15 @@ const canonicalURL = new URL(pathname, Astro.site).toString();
 // Resolve image URL (handle both string paths and astro:assets ImageMetadata)
 const resolvedImage = typeof image === 'string' ? image : image?.src || '/images/logo/logo.jpeg';
 const imageURL = new URL(resolvedImage, Astro.site).toString();
+const gscVerification = import.meta.env.GOOGLE_SITE_VERIFICATION || 'K4Qi1kSEqMuN9WCQZw4OHIHM3RYxpkZaZXseO7_zhFM';
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
 
-{import.meta.env.GOOGLE_SITE_VERIFICATION && (
-  <meta name="google-site-verification" content={import.meta.env.GOOGLE_SITE_VERIFICATION} />
+{gscVerification && (
+  <meta name="google-site-verification" content={gscVerification} />
 )}
 
 <!-- Open Graph / Facebook -->

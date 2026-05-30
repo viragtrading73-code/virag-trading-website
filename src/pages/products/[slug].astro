@@ -28,7 +28,7 @@ const resolvedImages = images ? images.map((img: any) => {
 
 const mainImage = resolvedImages.length > 0 ? resolvedImages[0] : null;
 
-const whatsappMessage = encodeURIComponent(`Hello Virag Trading Co,\n\nI am interested in ${title}.\n\nPlease share details and quotation.\n\nThank you.`);
+const whatsappMessage = encodeURIComponent(`Hello Virag Trading Co,\n\nI am interested in ${title}.\n\nPlease share product details, availability and quotation.\n\nThank you.`);
 const whatsappLink = `https://wa.me/${company.contact.whatsapp.replace('+', '')}?text=${whatsappMessage}`;
 ---
 
