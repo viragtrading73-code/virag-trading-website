@@ -12,14 +12,27 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
 const { page } = Astro.props;
 const allProducts = await getCollection('products');
-const searchableProducts = allProducts.map(p => ({
-  slug: p.id,
-  title: p.data.title,
-  description: p.data.description,
-  keywords: p.data.keywords.join(' '),
-  applications: p.data.applications.join(' '),
-  image: p.data.images[0] || '/images/products/placeholder.webp'
-}));
+const glob = import.meta.glob<{ default: any }>('/src/assets/images/products/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+const searchableProducts = allProducts.map(p => {
+  let resolvedImage = '/images/products/placeholder.webp';
+  if (p.data.images && p.data.images.length > 0) {
+    const imgStr = p.data.images[0];
+    const filename = imgStr.split('/').pop();
+    const path = `/src/assets/images/products/${filename}`;
+    if (glob[path]) {
+      resolvedImage = glob[path].default.src;
+    }
+  }
+  return {
+    slug: p.id,
+    title: p.data.title,
+    description: p.data.description,
+    keywords: p.data.keywords.join(' '),
+    applications: p.data.applications.join(' '),
+    image: resolvedImage
+  };
+});
 
 const title = `Products | ${company.name} - Page ${page.currentPage}`;
 ---

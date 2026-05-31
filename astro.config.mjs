@@ -7,8 +7,5 @@ export default defineConfig({
   site: 'https://viragtrading.co.in',
   output: 'static',
   trailingSlash: 'always',
-  redirects: {
-    '/products': '/products/'
-  },
   integrations: [tailwind(), sitemap()],
 });
