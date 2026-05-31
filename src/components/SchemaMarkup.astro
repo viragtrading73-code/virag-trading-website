@@ -128,19 +128,29 @@ if (product) {
     "manufacturer": {
       "@type": "Organization",
       "name": company.name
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": currentUrl,
-      "priceCurrency": "INR",
-      "availability": "https://schema.org/InStock",
-      "itemCondition": "https://schema.org/NewCondition"
     }
+  };
+}
+
+let faqSchema = null;
+if (product && product.data.faq && product.data.faq.length > 0) {
+  faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": product.data.faq.map((item: any) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
   };
 }
 
 const schemas = [organizationSchema, localBusinessSchema, breadcrumbSchema];
 if (productSchema) schemas.push(productSchema);
+if (faqSchema) schemas.push(faqSchema);
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schemas)} />

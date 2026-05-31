@@ -55,7 +55,9 @@ const currentYear = new Date().getFullYear();
       <div>
         <h3 class="text-white text-lg font-montserrat font-bold mb-6">Business Hours</h3>
         <ul class="space-y-4">
-          {Object.entries(company.hours).map(([day, hours]) => (
+          {Object.entries(company.hours)
+            .filter(([key]) => key !== 'openingHoursSpecification')
+            .map(([day, hours]) => (
             <li class="flex justify-between items-center border-b border-gray-700 pb-2">
               <span class="text-gray-400 text-sm">{day}</span>
               <span class="text-secondary text-sm font-semibold">{hours as string}</span>

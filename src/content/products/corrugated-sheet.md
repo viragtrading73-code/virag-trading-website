@@ -1,45 +1,64 @@
 ---
-title: "Corrugated Sheet"
-description: "Premium Corrugated Sheets manufactured from high-quality kraft paper for packaging, cushioning, partitioning, box manufacturing, and product protection. Durable, lightweight, recyclable, and ideal for industrial packaging applications."
-keywords: ["Corrugated Sheet Supplier Surat", "Corrugated Sheet Gujarat", "Corrugated Packaging Sheet", "Kraft Corrugated Sheet", "Packaging Corrugated Sheet", "Corrugated Protection Sheet", "Industrial Corrugated Sheet", "Corrugated Sheet Manufacturer Supplier"]
-category: "Packaging Materials"
-images: 
-  - "../../assets/images/products/corrugated-sheet-brown.jpg"
-  - "../../assets/images/products/corrugated-sheet-kraft-paper.jpg"
-  - "../../assets/images/products/corrugated-sheet-packaging.jpg"
-  - "../../assets/images/products/corrugated-sheet-cushioning.jpg"
+title: Corrugated Sheet
+description: Premium Corrugated Sheets manufactured from high-quality kraft paper for packaging, cushioning, partitioning, box manufacturing, and product protection. Durable, lightweight, recyclable, and ideal for industrial packaging applications.
+keywords:
+  - Corrugated Sheet Supplier Surat
+  - Corrugated Sheet Gujarat
+  - Corrugated Packaging Sheet
+  - Kraft Corrugated Sheet
+  - Packaging Corrugated Sheet
+  - Corrugated Protection Sheet
+  - Industrial Corrugated Sheet
+  - Corrugated Sheet Manufacturer Supplier
+category: Packaging Materials
+images:
+  - ../../assets/images/products/corrugated-sheet-brown.jpg
+  - ../../assets/images/products/corrugated-sheet-kraft-paper.jpg
+  - ../../assets/images/products/corrugated-sheet-packaging.jpg
+  - ../../assets/images/products/corrugated-sheet-cushioning.jpg
 features:
-  - "Strong & Durable Construction"
-  - "Excellent Cushioning Properties"
-  - "Lightweight & Easy to Handle"
-  - "Impact Resistant"
-  - "Recyclable & Eco-Friendly"
-  - "Easy to Cut and Customize"
-  - "Cost-Effective Packaging Solution"
-  - "Suitable for Multiple Applications"
+  - Strong & Durable Construction
+  - Excellent Cushioning Properties
+  - Lightweight & Easy to Handle
+  - Impact Resistant
+  - Recyclable & Eco-Friendly
+  - Easy to Cut and Customize
+  - Cost-Effective Packaging Solution
+  - Suitable for Multiple Applications
 specifications:
-  "Material": "Corrugated Kraft Paper"
-  "Type": "Corrugated Sheet"
-  "Surface": "Plain Brown"
-  "Usage": "Packaging & Protection"
-  "Feature": "Cushioning & Strength"
-  "Eco-Friendly": "Yes"
+  Material: Corrugated Kraft Paper
+  Type: Corrugated Sheet
+  Surface: Plain Brown
+  Usage: Packaging & Protection
+  Feature: Cushioning & Strength
+  Eco-Friendly: 'Yes'
 applications:
-  - "Packaging Protection"
-  - "Product Cushioning"
-  - "Box Manufacturing"
-  - "Layer Pads"
-  - "Product Separation"
-  - "Surface Protection During Transit"
-  - "Industrial Packaging"
-  - "Warehouse Storage"
+  - Packaging Protection
+  - Product Cushioning
+  - Box Manufacturing
+  - Layer Pads
+  - Product Separation
+  - Surface Protection During Transit
+  - Industrial Packaging
+  - Warehouse Storage
 faq:
-  - question: "Are corrugated sheets eco-friendly?"
-    answer: "Yes, our corrugated sheets are made from 100% recyclable kraft paper, making them an environmentally friendly packaging solution."
-  - question: "Can I order custom sizes?"
-    answer: "Absolutely. While we offer standard sizes like 2x3ft, 3x4ft, and 4x8ft, we can manufacture and cut corrugated sheets to your exact custom specifications."
+  - question: Are corrugated sheets eco-friendly?
+    answer: Yes, our corrugated sheets are made from 100% recyclable kraft paper, making them an environmentally friendly packaging solution.
+  - question: Can I order custom sizes?
+    answer: Absolutely. While we offer standard sizes like 2x3ft, 3x4ft, and 4x8ft, we can manufacture and cut corrugated sheets to your exact custom specifications.
+  - question: What ply options are available for corrugated sheets?
+    answer: We offer 2-ply, 3-ply, 5-ply, and 7-ply corrugated sheets to meet varying levels of cushioning and structural requirements.
+  - question: Are these sheets made from recycled kraft paper?
+    answer: Yes, our corrugated sheets are manufactured using high-quality, eco-friendly recycled kraft paper without compromising on strength.
+  - question: Can corrugated sheets be used for floor protection?
+    answer: Absolutely. Many of our clients use our heavy-duty corrugated sheets to protect flooring during construction or painting projects.
 featured: true
+slug: corrugated-sheet
+subcategory: Corrugated Packaging
+metaTitle: Corrugated Sheet | Virag Trading Co.
+metaDescription: Premium Corrugated Sheets manufactured from high-quality kraft paper for packaging, cushioning, partitioning, box manufacturing, and product protectio...
 ---
+
 
 ## Product Description
 

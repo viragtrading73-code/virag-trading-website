@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import company from '../../data/company.json';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.data.slug },
+    props: { post, allPosts: posts },
+  }));
+}
+
+const { post, allPosts } = Astro.props;
+const { title, date, author, tags, excerpt, featuredImage, metaTitle, metaDescription } = post.data;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const fullImageUrl = new URL(featuredImage || company.site.logo, Astro.site).toString();
+
+// Generate BlogPosting Schema
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL
+  },
+  "headline": title,
+  "description": metaDescription || excerpt,
+  "image": fullImageUrl,
+  "author": {
+    "@type": "Organization",
+    "name": author || company.name
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": company.name,
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL(company.site.logo, Astro.site).toString()
+    }
+  },
+  "datePublished": new Date(date).toISOString(),
+  "dateModified": new Date(date).toISOString()
+};
+
+// Find related posts (same tags, exclude current)
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id && p.data.tags.some((t: string) => tags.includes(t)))
+  .slice(0, 3);
+---
+
+<MainLayout 
+  title={metaTitle || `${title} | Virag Trading Co. Blog`} 
+  description={metaDescription || excerpt} 
+  image={featuredImage}
+  type="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+
+  <div class="bg-gray-100 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3 text-sm text-gray-500">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/blog/" class="hover:text-primary transition-colors">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800 font-medium">{title}</span>
+    </div>
+  </div>
+
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <header class="mb-10 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+          {tags.map((tag: string) => (
+            <span class="bg-secondary bg-opacity-10 text-secondary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{tag}</span>
+          ))}
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold font-montserrat text-gray-900 mb-6 leading-tight">{title}</h1>
+        <div class="flex items-center justify-center text-gray-500 gap-4">
+          <span>By <strong>{author}</strong></span>
+          <span>•</span>
+          <span>{new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+        </div>
+      </header>
+
+      {featuredImage && (
+        <div class="mb-12 rounded-2xl overflow-hidden shadow-lg border border-gray-100 aspect-video">
+          <img src={featuredImage} alt={title} class="w-full h-full object-cover" />
+        </div>
+      )}
+
+      <div class="prose prose-lg max-w-none text-gray-700 prose-headings:font-montserrat prose-headings:text-primary prose-a:text-secondary hover:prose-a:text-primary">
+        <slot />
+      </div>
+
+      <div class="mt-16 pt-8 border-t border-gray-200">
+        <div class="bg-gray-50 rounded-xl p-8 text-center">
+          <h3 class="text-2xl font-bold font-montserrat text-primary mb-4">Need Packaging Solutions?</h3>
+          <p class="text-gray-600 mb-6 max-w-2xl mx-auto">Explore our wide range of industrial packaging materials, strapping tools, and protective products tailored for your business.</p>
+          <div class="flex justify-center gap-4">
+            <a href="/products/" class="bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-lg shadow transition-colors">View Products</a>
+            <a href="/inquiry/" class="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 px-8 rounded-lg shadow transition-colors">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  {relatedPosts.length > 0 && (
+    <section class="py-16 bg-gray-50 border-t border-gray-200">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <h2 class="text-3xl font-bold font-montserrat text-center text-primary mb-10">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {relatedPosts.map((relPost: any) => (
+            <a href={`/blog/${relPost.data.slug}/`} class="group block bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow border border-gray-100 overflow-hidden">
+              <div class="aspect-video bg-gray-100 relative overflow-hidden">
+                <img 
+                  src={relPost.data.featuredImage || '/images/products/placeholder.webp'} 
+                  alt={relPost.data.title}
+                  class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors mb-3 line-clamp-2">{relPost.data.title}</h3>
+                <span class="text-secondary font-medium flex items-center text-sm">
+                  Read More
+                  <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</MainLayout>

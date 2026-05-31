@@ -1,0 +1,299 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const categoryData = {
+    'packaging-materials': {
+      title: 'Packaging Materials',
+      description: 'Explore our comprehensive range of high-quality industrial packaging materials designed to secure and protect your goods during transit. We offer a variety of solutions tailored to meet the demands of manufacturing, logistics, and retail sectors.',
+      content: 'At Virag Trading Co., we understand that the right packaging material is crucial for maintaining product integrity. Our Packaging Materials category encompasses a diverse selection of films, tapes, and bags. These products are manufactured using premium grade raw materials to ensure high tensile strength, excellent moisture resistance, and optimal durability. Whether you are bundling small items or securing large industrial pallets, our packaging solutions offer the reliability you need. We serve a wide array of industries including textiles, automotive parts, food processing, and e-commerce logistics. By choosing our packaging materials, you benefit from reduced transit damage, improved handling efficiency, and professional presentation. Our commitment to quality means every roll and sheet meets stringent industry standards.',
+      applications: ['Carton Sealing', 'Pallet Wrapping', 'Moisture Protection', 'Retail Packaging', 'Bulk Goods Transportation'],
+      industries: ['Textiles & Garments', 'E-commerce & Logistics', 'Automotive', 'Food & Beverage', 'Pharmaceuticals'],
+      faq: [
+        { question: 'What types of packaging materials do you supply?', answer: 'We supply BOPP tapes, stretch films, plastic bags, and HM rolls suitable for various industrial needs.' },
+        { question: 'Are your packaging materials environmentally friendly?', answer: 'Many of our products, like our corrugated sheets and certain plastics, are highly recyclable.' },
+        { question: 'Can I order custom printed packaging materials?', answer: 'Yes, we offer custom printing on BOPP tapes and LD bags for brand visibility.' },
+        { question: 'Do you cater to bulk wholesale orders?', answer: 'Absolutely, we specialize in bulk B2B supply of packaging materials with competitive pricing.' },
+        { question: 'What is the lead time for large orders?', answer: 'Standard orders are dispatched within 2-3 business days, while custom printed items may take 7-10 days.' }
+      ]
+    },
+    'jute-products': {
+      title: 'Jute Products',
+      description: 'Eco-friendly and heavy-duty Jute Products including Kantan cloth and Sutli twine. Ideal for agricultural packaging, hardware bundling, and sustainable industrial applications.',
+      content: 'Jute is one of the most versatile and sustainable natural fibers available today. Our Jute Products, including Jute Kantan (hessian cloth) and Jute Sutli (twine), offer exceptional breathability and robust tensile strength. These characteristics make them the preferred choice for agricultural produce, where preventing moisture buildup is critical. Jute Kantan is highly adaptable and can be stitched into custom bags or used as a protective wrap for hardware and metal components. Our Jute Sutli provides reliable tying strength for heavy bundles without cutting into the packaged goods. By integrating our jute products into your supply chain, you are choosing a 100% biodegradable and eco-friendly packaging solution that supports global sustainability goals while delivering uncompromising performance.',
+      applications: ['Agricultural Produce Packaging', 'Hardware Bundling', 'Textile Wrapping', 'Nursery & Landscaping', 'Eco-friendly Tying'],
+      industries: ['Agriculture & Farming', 'Hardware Manufacturing', 'Construction', 'Textiles', 'Retail'],
+      faq: [
+        { question: 'Are your jute products 100% natural?', answer: 'Yes, our jute kantan and sutli are manufactured from 100% natural and biodegradable jute fibers.' },
+        { question: 'Can Jute Kantan be used for storing food grains?', answer: 'Absolutely. The breathable nature of jute prevents moisture accumulation, making it ideal for grains and potatoes.' },
+        { question: 'How strong is Jute Sutli compared to plastic twine?', answer: 'Jute Sutli offers excellent tying strength and holds knots very securely, though it has slightly less tensile strength than synthetic PP twine.' },
+        { question: 'Is Jute Kantan available in rolls?', answer: 'Yes, we supply Jute Kantan in continuous rolls and bales for bulk industrial usage.' },
+        { question: 'Do you treat your jute with chemicals?', answer: 'No, our jute products are untreated and safe for environmentally sensitive applications.' }
+      ]
+    },
+    'strapping-solutions': {
+      title: 'Strapping Solutions',
+      description: 'Secure your heavy loads with our industrial-grade Strapping Solutions, including PP, PET strapping rolls, and related accessories for logistics and warehousing.',
+      content: 'Securing heavy pallets and cartons is essential for safe logistics, and our Strapping Solutions are engineered to provide maximum holding power. We offer both Polypropylene (PP) and Polyester (PET) strapping rolls to cater to different load requirements. PP strapping is ideal for light to medium-duty bundling, offering excellent elongation recovery and flexibility. For heavy-duty applications where steel strapping was traditionally used, our PET strapping offers a safer, rust-proof, and cost-effective alternative with comparable break strength. Both types are available in manual and machine grades to suit your specific packaging line. Our strapping solutions ensure that your goods remain tightly bound, preventing shifting or damage during long-haul transport. We also supply a full range of high-tensile metal seals and clips to complement our strapping rolls, ensuring secure joints every time.',
+      applications: ['Pallet Securing', 'Heavy Carton Bundling', 'Timber & Pipe Strapping', 'Export Packaging', 'Newspaper & Magazine Bundling'],
+      industries: ['Logistics & Shipping', 'Construction Materials', 'Paper & Print', 'Metal & Woodworking', 'Export Warehousing'],
+      faq: [
+        { question: 'What is the difference between PP and PET strapping?', answer: 'PP is flexible and used for medium loads, while PET is rigid and used as a replacement for steel strapping in heavy-duty applications.' },
+        { question: 'Can PET strapping be used outdoors?', answer: 'Yes, PET strapping is highly resistant to UV rays and extreme weather conditions.' },
+        { question: 'Do you supply strapping for automatic machines?', answer: 'Yes, we supply precision-engineered machine-grade PP and PET strapping for high-speed automated lines.' },
+        { question: 'Are your packing seals rust-proof?', answer: 'We supply galvanized steel seals that offer excellent resistance against rust and corrosion.' },
+        { question: 'What widths of strapping are available?', answer: 'We offer strapping widths ranging from 9mm to 19mm depending on the required break strength.' }
+      ]
+    },
+    'protective-packaging': {
+      title: 'Protective Packaging',
+      description: 'Safeguard your fragile and sensitive items with our premium Protective Packaging materials including Air Bubble Rolls, LD Foam, and Corrugated Sheets.',
+      content: 'During transit, products are subjected to various shocks, vibrations, and impacts. Our Protective Packaging category is specifically designed to absorb these forces and deliver your goods in pristine condition. We offer a comprehensive range of cushioning materials including Air Bubble Rolls, LDPE Foam Sheets, and Corrugated Sheets. Air Bubble Rolls provide excellent volumetric cushioning, trapping air to protect fragile items from direct impacts. LD Foam Sheets offer a smooth, non-abrasive surface that prevents surface scratches on delicate components like electronics and polished metals. Corrugated Sheets add structural rigidity and stackability to your packaging while absorbing heavy shocks. By utilizing our protective packaging solutions, businesses can significantly reduce their return rates due to transit damage, ensuring customer satisfaction and preserving brand reputation.',
+      applications: ['Fragile Item Wrapping', 'Surface Protection', 'Void Filling', 'Electronic Component Cushioning', 'Furniture Wrapping'],
+      industries: ['Electronics', 'Furniture & Decor', 'Automotive', 'Glass & Ceramics', 'E-commerce'],
+      faq: [
+        { question: 'Which is better for preventing scratches: Bubble Roll or LD Foam?', answer: 'LD Foam is better for preventing surface scratches due to its smooth texture, while Bubble Roll is better for deep impact protection.' },
+        { question: 'Are corrugated sheets eco-friendly?', answer: 'Yes, our corrugated sheets are made from highly recyclable kraft paper.' },
+        { question: 'Do you offer anti-static protective packaging?', answer: 'Yes, we supply anti-static LD foam specifically designed for the safe transit of electronic components.' },
+        { question: 'Can Air Bubble Rolls be reused?', answer: 'Absolutely, provided the bubbles haven\'t been popped, they can be reused multiple times.' },
+        { question: 'What ply options do you have for corrugated sheets?', answer: 'We offer 2-ply, 3-ply, 5-ply, and 7-ply sheets to match your structural requirements.' }
+      ]
+    },
+    'packaging-machines-tools': {
+      title: 'Packaging Machines & Tools',
+      description: 'Optimize your packaging operations with our high-performance Packaging Machines and Hand Tools. Boost productivity and ensure consistent tensioning and sealing.',
+      content: 'Efficiency and consistency are the hallmarks of a professional packaging operation. Our Packaging Machines & Tools category offers a robust selection of equipment designed to streamline your end-of-line packaging process. From manual tensioners and sealers to advanced Pneumatic Strapping Machines, we provide solutions that cater to various operational scales. Manual hand tools are perfect for flexible, on-the-go strapping of diverse load shapes, offering durability and ease of use. Our pneumatic machines drastically reduce operator fatigue while delivering rapid, consistent friction-welded seals for high-volume environments. Investing in the right packaging tools not only speeds up the fulfillment process but also ensures that every package is secured with uniform tension, minimizing the risk of failure during transit. We stand by the reliability of our equipment, ensuring long-term operational success.',
+      applications: ['High-speed Strapping', 'Pallet Tensioning', 'Friction Welding', 'Mobile Packaging Stations', 'Heavy Load Securing'],
+      industries: ['Manufacturing', 'Warehousing & Distribution', 'Export Logistics', 'Steel & Metal', 'Textile Mills'],
+      faq: [
+        { question: 'Do you provide manual and pneumatic strapping tools?', answer: 'Yes, we supply basic manual tensioners as well as advanced pneumatic friction-weld strapping machines.' },
+        { question: 'What maintenance is required for pneumatic machines?', answer: 'Regular lubrication of the air motor and keeping the tension wheel clean are the primary maintenance requirements.' },
+        { question: 'Can manual tools handle both PP and PET straps?', answer: 'Yes, our combination manual tools are designed to work effectively with both PP and PET strapping.' },
+        { question: 'Are replacement parts available for your tools?', answer: 'We stock essential spare parts like cutter blades and gripping wheels to ensure minimal downtime.' },
+        { question: 'How much air pressure does the pneumatic tool require?', answer: 'Typically, it operates efficiently between 0.5 to 0.8 MPa (70 to 115 psi).' }
+      ]
+    }
+  };
+
+  const allProducts = await getCollection('products');
+
+  return Object.keys(categoryData).map(slug => {
+    // Exact or loose match based on content subcategory/category logic
+    // For simplicity, we assign products based on subcategory mappings
+    const categoryMapping = {
+      'packaging-materials': ['Plastic Packaging Films', 'Plastic Packaging Bags', 'Plastic Twine', 'Packaging Tapes'],
+      'jute-products': ['Jute Products'],
+      'strapping-solutions': ['Strapping Solutions', 'Strapping Accessories'],
+      'protective-packaging': ['Protective Packaging', 'Corrugated Packaging', 'Protective Coverings'],
+      'packaging-machines-tools': ['Packaging Machines']
+    };
+    
+    const allowedSubcats = categoryMapping[slug] || [];
+    const categoryProducts = allProducts.filter(p => allowedSubcats.includes(p.data.subcategory));
+
+    return {
+      params: { category: slug },
+      props: { 
+        categoryInfo: categoryData[slug],
+        products: categoryProducts,
+        slug
+      }
+    };
+  });
+}
+
+const { categoryInfo, products, slug } = Astro.props;
+const { title, description, content, applications, industries, faq } = categoryInfo;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+// Resolve images via import.meta.glob to handle string paths correctly with astro:assets
+const imageGlob = import.meta.glob<{ default: any }>('/src/assets/images/products/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+// Generate CollectionPage and Breadcrumb Schema
+const schemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": title,
+    "description": description,
+    "url": canonicalURL,
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": products.map((prod, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": new URL(`/products/${prod.data.slug}/`, Astro.site).toString()
+      }))
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": new URL("/", Astro.site).toString()
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": title,
+        "item": canonicalURL
+      }
+    ]
+  }
+];
+
+// Add FAQ schema
+if (faq && faq.length > 0) {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map((f: any) => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer
+      }
+    }))
+  });
+}
+---
+
+<MainLayout title={`${title} | Virag Trading Co.`} description={description} type="website">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schemas)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-gray-100 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3 text-sm text-gray-500">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800 font-medium">{title}</span>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="py-12 bg-primary text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold font-montserrat mb-4">{title}</h1>
+      <p class="text-xl max-w-3xl mx-auto opacity-90">{description}</p>
+    </div>
+  </section>
+
+  <!-- Category Content -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="prose prose-lg max-w-4xl mx-auto text-gray-700">
+        <p>{content}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Listing -->
+  <section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold font-montserrat text-center text-primary mb-10">Products in {title}</h2>
+      
+      {products.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {products.map((product) => {
+            const p = product.data;
+            let mainImage = '/images/products/placeholder.webp';
+            if (p.images && p.images.length > 0) {
+              const imgVal = p.images[0];
+              if (typeof imgVal === 'string') {
+                const filename = imgVal.split('/').pop();
+                const path = `/src/assets/images/products/${filename}`;
+                if (imageGlob[path]) {
+                  mainImage = imageGlob[path].default.src;
+                } else {
+                  mainImage = imgVal;
+                }
+              }
+            }
+            
+            return (
+              <a href={`/products/${p.slug}/`} class="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
+                <div class="aspect-square bg-gray-50 relative overflow-hidden flex items-center justify-center p-4">
+                  <img 
+                    src={mainImage} 
+                    alt={p.title} 
+                    title={p.title}
+                    class="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                  <span class="text-xs font-semibold text-secondary uppercase tracking-wider mb-2">{p.subcategory}</span>
+                  <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">{p.title}</h3>
+                  <p class="text-gray-600 line-clamp-2 mb-4 text-sm flex-grow">{p.description}</p>
+                  <span class="text-primary font-medium flex items-center mt-auto">
+                    View Details 
+                    <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center text-gray-500 py-8">No products found in this category.</div>
+      )}
+    </div>
+  </section>
+
+  <!-- Applications & Industries -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-2xl font-bold font-montserrat text-primary mb-6 border-b pb-2">Key Applications</h3>
+          <ul class="space-y-3">
+            {applications.map(app => (
+              <li class="flex items-center text-gray-700">
+                <svg class="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                {app}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold font-montserrat text-primary mb-6 border-b pb-2">Industries Served</h3>
+          <ul class="space-y-3">
+            {industries.map(ind => (
+              <li class="flex items-center text-gray-700">
+                <svg class="w-5 h-5 text-secondary mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                {ind}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  {faq && faq.length > 0 && (
+    <section class="py-12 bg-gray-50 border-t border-gray-100">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <h2 class="text-3xl font-bold font-montserrat text-center text-primary mb-10">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          {faq.map(item => (
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <h3 class="text-lg font-bold text-gray-900 mb-2">{item.question}</h3>
+              <p class="text-gray-700">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</MainLayout>

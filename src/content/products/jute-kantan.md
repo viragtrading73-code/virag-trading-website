@@ -1,47 +1,62 @@
 ---
-title: "Jute Kantan"
-description: "Premium quality Jute Kantan (Hessian Cloth) manufactured from natural jute fibres. Strong, breathable, biodegradable, and eco-friendly. Ideal for agriculture, landscaping, and packaging."
-keywords: ["Jute Kantan", "Hessian Cloth", "Natural Jute Fabric", "Jute Wrapping Cloth", "Erosion Control Fabric", "Biodegradable Jute Cloth"]
-category: "Jute Products"
-images: 
-  - "../../assets/images/products/jute-kantan-roll.jpg"
-  - "../../assets/images/products/jute-kantan-hessian-cloth.jpg"
-  - "../../assets/images/products/jute-kantan-closeup-weave.jpg"
+title: Jute Kantan
+description: Premium quality Jute Kantan (Hessian Cloth) manufactured from natural jute fibres. Strong, breathable, biodegradable, and eco-friendly. Ideal for agriculture, landscaping, and packaging.
+keywords:
+  - Jute Kantan
+  - Hessian Cloth
+  - Natural Jute Fabric
+  - Jute Wrapping Cloth
+  - Erosion Control Fabric
+  - Biodegradable Jute Cloth
+category: Jute Products
+images:
+  - ../../assets/images/products/jute-kantan-roll.jpg
+  - ../../assets/images/products/jute-kantan-hessian-cloth.jpg
+  - ../../assets/images/products/jute-kantan-closeup-weave.jpg
 features:
-  - "100% Natural Jute Fibre"
-  - "Biodegradable & Eco-Friendly"
-  - "Strong Woven Construction"
-  - "Breathable Material"
-  - "Durable & Reusable"
-  - "Suitable for Agricultural Use"
-  - "Ideal for Erosion Control"
-  - "Environmentally Sustainable"
+  - 100% Natural Jute Fibre
+  - Biodegradable & Eco-Friendly
+  - Strong Woven Construction
+  - Breathable Material
+  - Durable & Reusable
+  - Suitable for Agricultural Use
+  - Ideal for Erosion Control
+  - Environmentally Sustainable
 specifications:
-  "Material": "100% Natural Jute Fibre"
-  "Fabric Type": "Hessian Cloth / Jute Kantan"
-  "Pattern": "Plain Woven"
-  "Color": "Natural Brown"
-  "Usage": "Agriculture, Landscaping, Packaging"
-  "Eco-Friendly": "Yes"
-  "Biodegradable": "Yes"
+  Material: 100% Natural Jute Fibre
+  Fabric Type: Hessian Cloth / Jute Kantan
+  Pattern: Plain Woven
+  Color: Natural Brown
+  Usage: Agriculture, Landscaping, Packaging
+  Eco-Friendly: 'Yes'
+  Biodegradable: 'Yes'
 applications:
-  - "Tree Root Wrapping"
-  - "Plant Protection"
-  - "Erosion Control"
-  - "Landscaping Projects"
-  - "Agriculture & Farming"
-  - "Nursery Applications"
-  - "Packaging & Covering"
-  - "Construction & Ground Protection"
+  - Tree Root Wrapping
+  - Plant Protection
+  - Erosion Control
+  - Landscaping Projects
+  - Agriculture & Farming
+  - Nursery Applications
+  - Packaging & Covering
+  - Construction & Ground Protection
 faq:
-  - question: "What is Jute Kantan used for?"
-    answer: "It is widely used for wrapping exposed roots of trees, protecting plants, and controlling soil erosion on slopes and embankments."
-  - question: "Is Jute Kantan eco-friendly?"
-    answer: "Yes, our Jute Kantan is made from 100% natural jute fibres and is completely biodegradable and environmentally sustainable."
-  - question: "What sizes are available?"
-    answer: "We offer widths including 36, 40, 44, 48, 54, and 60 inches. Custom widths and roll lengths are also available upon request."
+  - question: What is Jute Kantan used for?
+    answer: It is widely used for wrapping exposed roots of trees, protecting plants, and controlling soil erosion on slopes and embankments.
+  - question: Is Jute Kantan eco-friendly?
+    answer: Yes, our Jute Kantan is made from 100% natural jute fibres and is completely biodegradable and environmentally sustainable.
+  - question: What sizes are available?
+    answer: We offer widths including 36, 40, 44, 48, 54, and 60 inches. Custom widths and roll lengths are also available upon request.
+  - question: What is Jute Kantan primarily used for?
+    answer: Jute Kantan is a highly durable hessian cloth primarily used for packaging agricultural goods, hardware, and textiles.
+  - question: Is Jute Kantan biodegradable?
+    answer: Yes, being made from 100% natural jute fibers, it is completely biodegradable and an environmentally friendly packaging choice.
 featured: true
+slug: jute-kantan
+subcategory: Jute Products
+metaTitle: Jute Kantan | Virag Trading Co.
+metaDescription: Premium quality Jute Kantan (Hessian Cloth) manufactured from natural jute fibres. Strong, breathable, biodegradable, and eco-friendly. Ideal for agri...
 ---
+
 
 ## Product Description
 

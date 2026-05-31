@@ -1,0 +1,42 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const pageTitle = "Our Service Locations";
+const description = "Virag Trading Co. provides industrial packaging materials and strapping solutions across multiple locations, including Surat and throughout Gujarat.";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<MainLayout title={`${pageTitle} | Virag Trading Co.`} description={description} type="website">
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalURL} />
+  </Fragment>
+
+  <div class="bg-gray-100 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3 text-sm text-gray-500">
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800 font-medium">Locations</span>
+    </div>
+  </div>
+
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold font-montserrat text-primary mb-6">{pageTitle}</h1>
+      <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-10">
+        We serve businesses with top-tier packaging supplies across key industrial hubs. Select your location below.
+      </p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/surat/" class="p-8 bg-gray-50 border border-gray-200 rounded-xl hover:shadow-lg hover:border-primary transition-all text-center group">
+          <h2 class="text-2xl font-bold text-gray-900 group-hover:text-primary">Surat</h2>
+          <p class="text-gray-600 mt-2">Local Supply & Logistics</p>
+        </a>
+        <a href="/locations/gujarat/" class="p-8 bg-gray-50 border border-gray-200 rounded-xl hover:shadow-lg hover:border-primary transition-all text-center group">
+          <h2 class="text-2xl font-bold text-gray-900 group-hover:text-primary">Gujarat</h2>
+          <p class="text-gray-600 mt-2">State-wide Distribution</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>
