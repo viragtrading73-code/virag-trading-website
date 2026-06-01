@@ -35,10 +35,9 @@ const blogCollection = defineCollection({
     coverImage: image().optional(),
     coverImageAlt: z.string().optional(),
     tags: z.array(z.string()),
-    excerpt: z.string(),
-    featuredImage: z.string(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
+    draft: z.boolean().default(false)
   }),
 });
 
