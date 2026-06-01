@@ -9,17 +9,7 @@ interface Props {
 const { product } = Astro.props;
 const { title, description, images } = product.data;
 
-const glob = import.meta.glob<{ default: any }>('/src/assets/images/products/*.{jpeg,jpg,png,gif,webp}', { eager: true });
-const resolvedImages = images ? images.map((img: any) => {
-  if (typeof img === 'string') {
-    const filename = img.split('/').pop();
-    const path = `/src/assets/images/products/${filename}`;
-    return glob[path] ? glob[path].default : img;
-  }
-  return img;
-}) : [];
-
-const mainImage = resolvedImages.length > 0 ? resolvedImages[0] : null;
+const mainImage = images && images.length > 0 ? images[0] : null;
 ---
 
 <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full group">

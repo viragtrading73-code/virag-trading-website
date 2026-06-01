@@ -1,139 +1,79 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import MainLayout from '../../layouts/MainLayout.astro';
 import company from '../../data/company.json';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
-    params: { slug: post.data.slug },
-    props: { post, allPosts: posts },
+    params: { slug: post.id },
+    props: { post },
   }));
 }
 
-const { post, allPosts } = Astro.props;
-const { title, date, author, tags, excerpt, featuredImage, metaTitle, metaDescription } = post.data;
+const { post } = Astro.props;
+const { Content } = await post.render();
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const fullImageUrl = new URL(featuredImage || company.site.logo, Astro.site).toString();
-
-// Generate BlogPosting Schema
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": canonicalURL
-  },
-  "headline": title,
-  "description": metaDescription || excerpt,
-  "image": fullImageUrl,
-  "author": {
-    "@type": "Organization",
-    "name": author || company.name
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": company.name,
-    "logo": {
-      "@type": "ImageObject",
-      "url": new URL(company.site.logo, Astro.site).toString()
-    }
-  },
-  "datePublished": new Date(date).toISOString(),
-  "dateModified": new Date(date).toISOString()
-};
-
-// Find related posts (same tags, exclude current)
-const relatedPosts = allPosts
-  .filter(p => p.id !== post.id && p.data.tags.some((t: string) => tags.includes(t)))
-  .slice(0, 3);
+const title = `${post.data.metaTitle || post.data.title} | ${company.name}`;
+const description = post.data.metaDescription || post.data.description;
+const pubDateStr = new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
-<MainLayout 
-  title={metaTitle || `${title} | Virag Trading Co. Blog`} 
-  description={metaDescription || excerpt} 
-  image={featuredImage}
-  type="article"
->
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-  </Fragment>
-
-  <div class="bg-gray-100 border-b border-gray-200">
-    <div class="container mx-auto px-4 py-3 text-sm text-gray-500">
-      <a href="/" class="hover:text-primary transition-colors">Home</a>
-      <span class="mx-2">/</span>
-      <a href="/blog/" class="hover:text-primary transition-colors">Blog</a>
-      <span class="mx-2">/</span>
-      <span class="text-gray-800 font-medium">{title}</span>
-    </div>
-  </div>
-
-  <article class="py-16 bg-white">
-    <div class="container mx-auto px-4 max-w-4xl">
-      <header class="mb-10 text-center">
-        <div class="flex items-center justify-center gap-2 mb-4">
-          {tags.map((tag: string) => (
-            <span class="bg-secondary bg-opacity-10 text-secondary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{tag}</span>
-          ))}
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold font-montserrat text-gray-900 mb-6 leading-tight">{title}</h1>
-        <div class="flex items-center justify-center text-gray-500 gap-4">
-          <span>By <strong>{author}</strong></span>
-          <span>•</span>
-          <span>{new Date(date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-        </div>
-      </header>
-
-      {featuredImage && (
-        <div class="mb-12 rounded-2xl overflow-hidden shadow-lg border border-gray-100 aspect-video">
-          <img src={featuredImage} alt={title} class="w-full h-full object-cover" />
-        </div>
-      )}
-
-      <div class="prose prose-lg max-w-none text-gray-700 prose-headings:font-montserrat prose-headings:text-primary prose-a:text-secondary hover:prose-a:text-primary">
-        <slot />
+<MainLayout title={title} description={description} type="article">
+  
+  <!-- Article Header -->
+  <header class="bg-gray-50 pt-16 pb-12 border-b border-gray-200">
+    <div class="container mx-auto px-4 max-w-4xl text-center">
+      <div class="flex flex-wrap justify-center gap-3 mb-6">
+        {post.data.tags.map((tag: string) => (
+          <span class="text-xs font-bold text-secondary bg-secondary/10 px-3 py-1.5 rounded-full border border-secondary/20 uppercase tracking-wider">{tag}</span>
+        ))}
       </div>
-
-      <div class="mt-16 pt-8 border-t border-gray-200">
-        <div class="bg-gray-50 rounded-xl p-8 text-center">
-          <h3 class="text-2xl font-bold font-montserrat text-primary mb-4">Need Packaging Solutions?</h3>
-          <p class="text-gray-600 mb-6 max-w-2xl mx-auto">Explore our wide range of industrial packaging materials, strapping tools, and protective products tailored for your business.</p>
-          <div class="flex justify-center gap-4">
-            <a href="/products/" class="bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-lg shadow transition-colors">View Products</a>
-            <a href="/inquiry/" class="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 px-8 rounded-lg shadow transition-colors">Contact Us</a>
-          </div>
+      <h1 class="text-4xl md:text-5xl font-bold font-montserrat text-primary mb-6 leading-tight">{post.data.title}</h1>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">{post.data.description}</p>
+      
+      <div class="flex items-center justify-center gap-6 text-sm text-gray-500 font-medium">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          {post.data.author}
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          {pubDateStr}
         </div>
       </div>
     </div>
-  </article>
+  </header>
 
-  {relatedPosts.length > 0 && (
-    <section class="py-16 bg-gray-50 border-t border-gray-200">
-      <div class="container mx-auto px-4 max-w-6xl">
-        <h2 class="text-3xl font-bold font-montserrat text-center text-primary mb-10">Related Articles</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {relatedPosts.map((relPost: any) => (
-            <a href={`/blog/${relPost.data.slug}/`} class="group block bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow border border-gray-100 overflow-hidden">
-              <div class="aspect-video bg-gray-100 relative overflow-hidden">
-                <img 
-                  src={relPost.data.featuredImage || '/images/products/placeholder.webp'} 
-                  alt={relPost.data.title}
-                  class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div class="p-6">
-                <h3 class="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors mb-3 line-clamp-2">{relPost.data.title}</h3>
-                <span class="text-secondary font-medium flex items-center text-sm">
-                  Read More
-                  <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+  <!-- Article Cover Image -->
+  {post.data.coverImage && (
+    <div class="container mx-auto px-4 max-w-5xl -mt-8 relative z-10 mb-16">
+      <Image src={post.data.coverImage} alt={post.data.coverImageAlt || post.data.title} width={1000} height={500} class="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-xl border-4 border-white" />
+    </div>
   )}
+
+  <!-- Article Content -->
+  <section class="py-8 bg-white">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <article class="prose prose-lg md:prose-xl prose-primary max-w-none prose-headings:font-montserrat prose-headings:font-bold prose-img:rounded-xl prose-img:shadow-md prose-a:text-secondary hover:prose-a:text-primary">
+        <Content />
+      </article>
+      
+      <!-- CTA Footer -->
+      <div class="mt-16 bg-gray-50 p-8 rounded-2xl border border-gray-200 text-center">
+        <h3 class="text-2xl font-bold font-montserrat text-primary mb-3">Optimize Your Packaging Operations</h3>
+        <p class="text-gray-600 mb-6">Need expert advice on selecting the right industrial packaging materials for your business? Our team is ready to help.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/inquiry/" class="bg-secondary hover:bg-primary text-white font-bold py-3 px-8 rounded-lg transition-colors shadow-md">
+            Consult Our Experts
+          </a>
+          <a href={`tel:${company.contact.primaryPhone.replace(/\s+/g, '')}`} class="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold py-3 px-8 rounded-lg transition-colors flex items-center gap-2">
+            Call {company.contact.primaryPhone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 </MainLayout>

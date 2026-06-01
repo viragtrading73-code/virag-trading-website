@@ -1,10 +1,74 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
+import company from '../../data/company.json';
 
 export async function getStaticPaths() {
   const locations = [
-    { slug: 'surat', title: 'Surat', region: 'Gujarat' },
-    { slug: 'gujarat', title: 'Gujarat', region: 'India' }
+    { 
+      slug: 'ahmedabad', 
+      title: 'Ahmedabad', 
+      region: 'Gujarat',
+      heroSubtitle: 'Serving the Manchester of India with Premium Industrial Packaging',
+      content: 'Ahmedabad stands as Gujarat\'s largest industrial and commercial hub. Virag Trading Co. is dedicated to supplying heavy-duty strapping solutions, protective air bubble rolls, and robust HDPE tarpaulins to support the bustling textile mills, pharmaceutical giants, and automobile manufacturing units across Sanand, Changodar, Naroda, and Odhav GIDC. We understand the high-volume procurement needs of Ahmedabad\'s industries and offer competitive bulk pricing combined with rapid logistics.',
+      industries: [
+        { name: 'Textiles & Denim', desc: 'Moisture-resistant wraps and heavy-duty strapping for fabric bales.' },
+        { name: 'Pharmaceuticals', desc: 'Clean, non-toxic EPE foam and bubble rolls for delicate medical transit.' },
+        { name: 'Automobile Engineering', desc: 'Industrial rust-proof buckles and PET straps for heavy auto parts.' }
+      ],
+      metaDescription: 'Wholesale packaging material supplier in Ahmedabad. We provide strapping, tarpaulins, and protective packaging for textiles and manufacturing in Ahmedabad GIDC.'
+    },
+    { 
+      slug: 'surat', 
+      title: 'Surat', 
+      region: 'Gujarat',
+      heroSubtitle: 'Reliable Packaging Partner for the Silk City & Diamond Hub',
+      content: 'Based locally in Surat, Virag Trading Co. is the preferred packaging material supplier for the city\'s massive textile and diamond polishing industries. From providing natural jute sutli for grey cloth baling in Sachin and Pandesara GIDC, to supplying high-grade pneumatic strapping machines for massive logistics operations in Hazira, our local presence guarantees same-day or next-day delivery. We ensure Surat\'s businesses never face a packaging bottleneck.',
+      industries: [
+        { name: 'Textiles & Yarn', desc: 'Bulk supply of jute twine, plastic sutali, and woven sacks for fabric packaging.' },
+        { name: 'Diamond & Export', desc: 'High-security strapping and tamper-evident tapes for valuable exports.' },
+        { name: 'Heavy Industries (Hazira)', desc: 'Pneumatic strapping machines and composite lashing for massive engineering loads.' }
+      ],
+      metaDescription: 'Leading packaging material supplier in Surat. We supply jute sutli, PET strapping, and protective packaging to Surat textile markets and Hazira industries.'
+    },
+    { 
+      slug: 'vadodara', 
+      title: 'Vadodara', 
+      region: 'Gujarat',
+      heroSubtitle: 'Securing the Chemical and Power Capital of Gujarat',
+      content: 'Vadodara (Baroda) is the heart of Gujarat\'s chemical, petrochemical, and power engineering sectors. Companies operating in Nandesari, Makarpura, and Savli GIDC require packaging materials that can withstand harsh chemical environments and secure extremely heavy machinery. Virag Trading Co. supplies chemical-resistant PP strapping, galvanized mild steel buckles, and heavy GSM tarpaulins to protect and secure Vadodara\'s critical industrial output during transit.',
+      industries: [
+        { name: 'Chemicals & Petrochemicals', desc: 'Composite straps and wire buckles for securing heavy chemical drums on pallets.' },
+        { name: 'Power & Machinery', desc: 'Heavy-duty PET strapping and edge protectors for large engineering consignments.' },
+        { name: 'Glass & Ceramics', desc: 'Premium LD foam sheets and bubble rolls to prevent breakage during transport.' }
+      ],
+      metaDescription: 'Top industrial packaging supplier in Vadodara. Securing chemicals and heavy machinery with composite straps, MS buckles, and protective foam.'
+    },
+    { 
+      slug: 'rajkot', 
+      title: 'Rajkot', 
+      region: 'Gujarat',
+      heroSubtitle: 'Durable Packaging for the Machine Tool & Auto Parts Hub',
+      content: 'Rajkot\'s robust economy is driven by its machine tools, automotive parts, and foundry industries. Foundries and engineering plants in Shapar, Metoda, and Aji GIDC depend on packaging that can handle sharp, heavy metal components. Virag Trading Co. delivers high-tension PET strapping, robust manual tensioning tools, and heavy-duty corrugated sheets to ensure Rajkot\'s manufactured metal goods reach domestic and international markets safely and without transit damage.',
+      industries: [
+        { name: 'Machine Tools & Foundries', desc: 'High-tensile PET strapping to safely bundle heavy, sharp metal castings.' },
+        { name: 'Auto Parts Manufacturing', desc: 'Vibration-dampening EPE foam and bubble wraps for sensitive automotive components.' },
+        { name: 'Agricultural Equipment', desc: 'Heavy-duty tarpaulins for protecting tractors and implements from the elements.' }
+      ],
+      metaDescription: 'Trusted packaging material supplier in Rajkot. Providing heavy-duty PET straps, tools, and protective packaging for the auto parts and foundry industry.'
+    },
+    { 
+      slug: 'gandhinagar', 
+      title: 'Gandhinagar', 
+      region: 'Gujarat',
+      heroSubtitle: 'Modern Packaging Solutions for a Smart City',
+      content: 'As Gujarat\'s administrative and IT capital, Gandhinagar is rapidly expanding its electronics manufacturing and modern logistics capabilities, particularly around GIFT City and electronic estates. Virag Trading Co. provides clean-room compatible packaging, anti-static (ESD) bubble wraps, and lightweight PP strapping rolls. We support Gandhinagar\'s transition into a high-tech manufacturing hub with modern, efficient, and eco-friendly packaging materials.',
+      industries: [
+        { name: 'IT & Electronics', desc: 'Pink anti-static bubble rolls and foam for secure transit of PCBs and servers.' },
+        { name: 'Modern Logistics', desc: 'High-speed machine-grade PP strapping for automated sorting facilities.' },
+        { name: 'Government & Administration', desc: 'Secure document bundling using eco-friendly jute twine and BOPP tapes.' }
+      ],
+      metaDescription: 'Premium packaging supplier in Gandhinagar. Offering anti-static bubble wrap, automated PP strapping, and eco-friendly packaging for IT and logistics.'
+    }
   ];
 
   return locations.map(loc => ({
@@ -14,19 +78,39 @@ export async function getStaticPaths() {
 }
 
 const { locationInfo } = Astro.props;
-const { title, region } = locationInfo;
+const { title, region, heroSubtitle, content, industries, metaDescription } = locationInfo;
 
 const pageTitle = `Packaging Material Supplier in ${title}, ${region}`;
-const description = `Virag Trading Co. is the leading supplier of industrial packaging materials, jute products, and strapping solutions in ${title}, ${region}.`;
-
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+// Generate LocalBusiness Schema
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": `Virag Trading Co. - ${title}`,
+  "image": new URL(company.site.logo, Astro.site).toString(),
+  "description": metaDescription,
+  "@id": canonicalURL,
+  "url": canonicalURL,
+  "telephone": company.contact.primaryPhone,
+  "areaServed": {
+    "@type": "City",
+    "name": title,
+    "containedInPlace": {
+      "@type": "State",
+      "name": region
+    }
+  }
+};
 ---
 
-<MainLayout title={`${pageTitle} | Virag Trading Co.`} description={description} type="website">
+<MainLayout title={`${pageTitle} | Virag Trading Co.`} description={metaDescription} type="website">
   <Fragment slot="head">
     <link rel="canonical" href={canonicalURL} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
   </Fragment>
 
+  <!-- Breadcrumbs -->
   <div class="bg-gray-100 border-b border-gray-200">
     <div class="container mx-auto px-4 py-3 text-sm text-gray-500">
       <a href="/" class="hover:text-primary transition-colors">Home</a>
@@ -37,17 +121,69 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     </div>
   </div>
 
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold font-montserrat text-primary mb-6">{pageTitle}</h1>
-      <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-        We are proud to serve the industrial and commercial sectors of <strong>{title}</strong>. Our comprehensive range of packaging materials ensures your goods are protected safely and efficiently. Contact us for bulk supplies and custom packaging solutions in {region}.
-      </p>
-      <div class="mt-10">
-        <a href="/inquiry/" class="bg-secondary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-colors text-lg">
-          Request a Quote
-        </a>
+  <!-- Hero Section -->
+  <section class="py-20 bg-primary text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/10"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="inline-block px-4 py-1.5 bg-secondary text-primary font-bold rounded-full text-sm mb-6">
+          Local Supply & Logistics in {title}
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat mb-6 leading-tight">
+          Industrial Packaging Material Supplier in {title}
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-200 font-light mb-10">
+          {heroSubtitle}
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/inquiry/" class="bg-secondary hover:bg-white text-primary font-bold py-3.5 px-8 rounded-lg shadow-lg transition-colors text-lg">
+            Request Bulk Quote
+          </a>
+          <a href={`tel:${company.contact.primaryPhone.replace(/\s+/g, '')}`} class="bg-transparent border-2 border-white/30 hover:bg-white/10 text-white font-bold py-3.5 px-8 rounded-lg transition-colors text-lg inline-flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            Call Us Today
+          </a>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Local Content Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="w-12 h-1 bg-secondary"></div>
+        <h2 class="text-3xl font-bold text-primary font-montserrat">Supporting {title}'s B2B Ecosystem</h2>
+      </div>
+      <p class="text-lg text-gray-700 leading-relaxed mb-12">
+        {content}
+      </p>
+
+      <h3 class="text-2xl font-bold text-primary font-montserrat mb-8">Key Industries We Serve in {title}</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {industries.map(ind => (
+          <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl hover:shadow-md transition-shadow">
+            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+            </div>
+            <h4 class="font-bold text-lg mb-2 text-gray-900">{ind.name}</h4>
+            <p class="text-sm text-gray-600">{ind.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- General Product Categories Link -->
+      <div class="bg-primary text-white rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <h3 class="text-2xl font-bold font-montserrat mb-2">Explore Our Product Catalog</h3>
+          <p class="text-gray-300">From protective bubble rolls to heavy-duty strapping machines, discover our complete range of packaging supplies ready for dispatch to {title}.</p>
+        </div>
+        <a href="/products/" class="shrink-0 bg-secondary hover:bg-white text-primary font-bold py-3 px-8 rounded-lg transition-colors whitespace-nowrap">
+          View All Products
+        </a>
+      </div>
+
+    </div>
+  </section>
+
 </MainLayout>

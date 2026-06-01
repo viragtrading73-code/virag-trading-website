@@ -118,9 +118,42 @@ const description = `Send an inquiry for industrial packaging materials, strappi
       </div>
     </div>
   </section>
+
+  <!-- Location Map -->
+  <section class="bg-gray-50 pb-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold font-montserrat text-primary mb-4">Visit Our Headquarters</h2>
+        <div class="w-16 h-1 bg-secondary mx-auto"></div>
+        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">We welcome B2B clients to visit our warehouse and corporate office to review our packaging quality firsthand.</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden h-[500px] border border-gray-100 max-w-7xl mx-auto">
+        <iframe 
+          title="Virag Trading Co. Location Map"
+          src={company.address.mapEmbedUrl} 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
 </MainLayout>
 
 <script>
+  // Auto-fill product from URL if present
+  const urlParams = new URLSearchParams(window.location.search);
+  const productParam = urlParams.get('product');
+  if (productParam) {
+    const productInput = document.getElementById('product') as HTMLInputElement;
+    if (productInput) {
+      productInput.value = productParam;
+    }
+  }
+
   const form = document.getElementById('inquiry-form') as HTMLFormElement;
   
   if (form) {
