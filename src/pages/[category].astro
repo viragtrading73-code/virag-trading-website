@@ -74,6 +74,34 @@ export async function getStaticPaths() {
         { question: 'Are replacement parts available for your tools?', answer: 'We stock essential spare parts like cutter blades and gripping wheels to ensure minimal downtime.' },
         { question: 'How much air pressure does the pneumatic tool require?', answer: 'Typically, it operates efficiently between 0.5 to 0.8 MPa (70 to 115 psi).' }
       ]
+    },
+    'construction-materials': {
+      title: 'Construction Materials',
+      description: 'High-quality Construction Materials including reinforcement tapes, drywall tapes, and building solutions.',
+      content: 'We provide premium Construction Materials tailored for contractors, builders, and interior finishing professionals. Our range includes high-strength drywall matrix tapes and fiberglass reinforcement meshes designed to prevent cracking and ensure durable, smooth finishes for both residential and commercial projects. By choosing our construction solutions, you benefit from reliable performance and ease of installation, ultimately improving the structural integrity and aesthetic quality of your finishing work.',
+      applications: ['Drywall Finishing', 'Crack Repair', 'Wall Reinforcement', 'Gypsum Installation'],
+      industries: ['Construction', 'Interior Design', 'Renovation', 'Commercial Building'],
+      faq: [
+        { question: 'What types of construction tapes do you offer?', answer: 'We primarily offer high-tensile fiberglass mesh tapes for drywall and joint reinforcement.' },
+        { question: 'Are your reinforcement tapes self-adhesive?', answer: 'Yes, our drywall matrix tapes feature a self-adhesive backing for fast and easy application.' },
+        { question: 'Can these tapes be used in high humidity areas?', answer: 'Absolutely, fiberglass mesh is inherently moisture and rot resistant, making it ideal for bathrooms and kitchens.' },
+        { question: 'Do you supply to large commercial projects?', answer: 'Yes, we handle bulk orders for large-scale residential, commercial, and industrial construction sites.' },
+        { question: 'How do mesh tapes compare to paper tapes?', answer: 'Mesh tapes are easier to apply as they are self-adhesive and offer better moisture resistance compared to traditional paper tapes.' }
+      ]
+    },
+    'agricultural-products': {
+      title: 'Agricultural Products',
+      description: 'Premium Agricultural Products including UV-stabilized shade nets for crop protection, greenhouses, nurseries, and landscaping applications.',
+      content: 'Virag Trading Co. supplies top-tier Agricultural Products designed to optimize crop growth and protect agricultural investments. Our primary offerings include UV-stabilized HDPE Green Nets (shade nets) that provide reliable protection against harsh sunlight, strong winds, and heavy rain while allowing essential air circulation. These nets are indispensable for modern horticulture, greenhouse farming, and commercial plant nurseries. They help maintain controlled microclimates, significantly reducing heat stress on delicate plants. Whether you are managing a large-scale agricultural farm or a specialized landscaping project, our durable and weather-resistant shade solutions ensure improved crop yields and long-term performance.',
+      applications: ['Greenhouse Farming', 'Crop Sun Protection', 'Plant Nurseries', 'Landscaping', 'Terrace Gardens'],
+      industries: ['Agriculture', 'Horticulture', 'Landscaping', 'Commercial Farming'],
+      faq: [
+        { question: 'What shade percentages do you offer?', answer: 'We offer a range of shade nets typically spanning from 35% to 90% shade coverage.' },
+        { question: 'Are your agricultural nets UV treated?', answer: 'Yes, our shade nets are manufactured using UV-stabilized HDPE for extended outdoor lifespan.' },
+        { question: 'Can shade nets be used for non-agricultural purposes?', answer: 'Certainly, they are widely used for car parking shades, construction site screening, and terrace gardens.' },
+        { question: 'How long do the shade nets typically last?', answer: 'With proper installation, our high-quality UV-stabilized nets typically last 3 to 5 years outdoors.' },
+        { question: 'Do you supply custom lengths?', answer: 'Yes, we can provide custom lengths and rolls based on the specific dimensions of your project.' }
+      ]
     }
   };
 
@@ -87,7 +115,9 @@ export async function getStaticPaths() {
       'jute-products': ['Jute Products'],
       'strapping-solutions': ['Strapping Solutions', 'Strapping Accessories'],
       'protective-packaging': ['Protective Packaging', 'Corrugated Packaging', 'Protective Coverings'],
-      'packaging-machines-tools': ['Packaging Machines']
+      'packaging-machines-tools': ['Packaging Machines'],
+      'construction-materials': ['Reinforcement Tapes', 'Joint Fillers'],
+      'agricultural-products': ['Shade Nets']
     };
     
     const allowedSubcats = categoryMapping[slug] || [];

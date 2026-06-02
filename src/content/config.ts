@@ -13,6 +13,7 @@ const productsCollection = defineCollection({
     specifications: z.record(z.string()).optional(),
     applications: z.array(z.string()).optional(),
     faq: z.array(z.object({ question: z.string(), answer: z.string() })).optional(),
+    whatsappMessage: z.string().optional(),
   })
 });
 

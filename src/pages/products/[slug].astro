@@ -13,12 +13,13 @@ export async function getStaticPaths() {
 }
 
 const { product } = Astro.props;
-const { title, description, keywords, images, features, specifications, applications, faq } = product.data;
+const { title, description, keywords, images, features, specifications, applications, faq, whatsappMessage: customWhatsappMessage } = product.data;
 
 const resolvedImages = images || [];
 const mainImage = resolvedImages.length > 0 ? resolvedImages[0] : null;
 
-const whatsappMessage = encodeURIComponent(`Hello Virag Trading Co,\n\nI am interested in ${title}.\n\nPlease share product details, availability and quotation.\n\nThank you.`);
+const whatsappMessageText = customWhatsappMessage || `Hello Virag Trading Co,\n\nI am interested in ${title}.\n\nPlease share product details, availability and quotation.\n\nThank you.`;
+const whatsappMessage = encodeURIComponent(whatsappMessageText);
 const whatsappLink = `https://wa.me/${company.contact.whatsapp.replace('+', '')}?text=${whatsappMessage}`;
 ---
 
